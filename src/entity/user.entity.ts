@@ -3,6 +3,7 @@ import { Roles } from "./role.enum";
 import { Category } from "src/category/entities/category.entity";
 import { Product } from "src/product/entities/product.entity";
 import { Review } from "src/review/entities/review.entity";
+import { Order } from "src/order/entities/order.entity";
 
 @Entity()
 export class User {
@@ -26,6 +27,9 @@ export class User {
     product: Product[]
     @OneToMany(()=> Review, review=> review.user)
     reviews: Review[]
+
+    @OneToMany(()=> Order, op=> op.user)
+    order: Order[]
 
     constructor(entity: Partial<User>){
         Object.assign(this, entity)

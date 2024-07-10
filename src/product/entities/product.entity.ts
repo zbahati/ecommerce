@@ -1,5 +1,7 @@
 import { Category } from "src/category/entities/category.entity";
 import { User } from "src/entity/user.entity";
+import { Order } from "src/order/entities/order.entity";
+import { OrdersProducts } from "src/order/entities/orders-products.entity";
 import { Review } from "src/review/entities/review.entity";
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
 
@@ -34,6 +36,13 @@ export class Product {
 
     @ManyToOne(()=> Category, (cat)=> cat.product)
     category: Category
+
+    @OneToMany(()=> OrdersProducts, op=> op.product, {cascade: true})
+    order_product: OrdersProducts[]
+
+
+    @ManyToOne(()=> Order, order => order.products)
+    order: Order
 
     constructor(entity: Partial<Product>){
         Object.assign(this, entity)
